@@ -1,11 +1,12 @@
 class Poll < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :restricted
 
   belongs_to :user
   has_many :questions
   has_many :responses, :through => :choices, :through => :questions
 
   validates :user_id, :presence => true
+  validates :restricted, :inclusion => {:in => [true, false]}
 
   def make_question(body)
     self.questions.create!(body: body)

@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
 
   def take_poll(poll)
     raise "Can't take your own poll." if poll.user == self
+    if poll.restricted && poll.user.team != self.team
+      raise "This poll is restricted to the author's team."
+    end
     poll.ask_questions
   end
 

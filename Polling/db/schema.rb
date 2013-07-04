@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704140958) do
+ActiveRecord::Schema.define(:version => 20130704213617) do
 
   create_table "choices", :force => true do |t|
     t.integer  "question_id"
@@ -23,8 +23,9 @@ ActiveRecord::Schema.define(:version => 20130704140958) do
   create_table "polls", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "restricted", :default => false
   end
 
   create_table "questions", :force => true do |t|
@@ -41,10 +42,17 @@ ActiveRecord::Schema.define(:version => 20130704140958) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "teams", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "username"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "team_id"
   end
 
 end
