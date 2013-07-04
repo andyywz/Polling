@@ -16,11 +16,12 @@ class Question < ActiveRecord::Base
   end
 
   def results
-    result_hash = self.responses.group(choice_id).count
-    choices.map { |choice| [choice.id,choice.body] }
-    result_hash.each do |k,v|
-
+    loaded_choices = self.choices.includes(:responses)
+    hash = Hash.new
+    loaded_choices.each do |c|
+      hash[c.body] = c.responses.length
     end
+    hash
   end
 end
 
